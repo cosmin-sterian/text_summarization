@@ -32,9 +32,11 @@ def compute_tf_idf(dataset):
     i = 0
     for _, _, ctext in dataset:
         print(i)
-        words = text_cleaning.keep_words_only(ctext, True)
-        words = text_cleaning.stem(words)
+        # words = text_cleaning.keep_words_only(ctext, True)
+        sentences = text_cleaning.clean_text(ctext)  # [[words]]
+        sentences = text_cleaning.stem(sentences)
         ctext_words.append(set(words))
+        # TODO: change stuff here to work on sentences
         for word in words:
             if word not in vocabulary:
                 vocabulary[word] = (1, 0)
@@ -70,7 +72,7 @@ def compute_tf_idf(dataset):
 
 def main():
     sentence = "At eight o'clock on Thursday morning morning Arthur didn't feel very good. French-Fries"
-    print("".join(text_cleaning.clean_text(sentence)))
+    # print("".join(text_cleaning.clean_text(sentence)))
     # TODO: Actual stuff
     # 1. and 2.: Clean text and compute TF-IDF
     dataset = parser.read_input()  # [headlines, text, ctext]
