@@ -72,10 +72,13 @@ def main():
     sentence = "At eight o'clock on Thursday morning morning Arthur didn't feel very good. French-Fries"
     print("".join(text_cleaning.clean_text(sentence)))
     # TODO: Actual stuff
+    # 1. and 2.: Clean text and compute TF-IDF
     dataset = parser.read_input()  # [headlines, text, ctext]
-    vocabulary = compute_tf_idf(dataset)
+    vocabulary = compute_tf_idf(dataset)  # {word: (TF, IDF)}
 
-    out_file = open('vocabulary3.txt', 'w')
+
+def debug_dump_vocabulary(vocabulary, path='vocabulary.txt'):
+    out_file = open(path, 'w')
     out_file.write(json.dumps(vocabulary))
     out_file.close()
 
