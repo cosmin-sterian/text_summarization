@@ -5,15 +5,8 @@ from nltk.stem import PorterStemmer
 
 
 def stem(input_sentences: list):
-    # result = []
     stemmer = PorterStemmer()
     result = [[stemmer.stem(word) for word in sentence] for sentence in input_sentences]
-    # for sentence in input_sentences:
-    #     new_sentence = []
-    #     for word in sentence:
-
-    # for word in input_words:
-    #     result.append(stemmer.stem(word))
     return result
 
 
@@ -25,8 +18,8 @@ def get_all_words(input_sentences: list):
 
 
 def clean_text(input_text: str):
-    # TODO: Clean input_text
-    # TODO: Lower case the text before processing it
+    # Clean input_text
+    # Lower case the text before processing it
     input_text = input_text.lower()
     result = keep_words_only(input_text)
     result = remove_stop_words(result)
@@ -44,10 +37,6 @@ def remove_stop_words(input_text: str):
         word_tokens = [word for word in word_tokens if word not in stop_words]
         output.append(word_tokens)
 
-    # word_tokens = word_tokenize(input_text)
-
-    # output = [word for word in word_tokens if word not in stop_words]
-    # return " ".join(output)
     return output
 
 
