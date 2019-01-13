@@ -1,14 +1,26 @@
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem import PorterStemmer
 
 
-def stem(input_words: list):
-    result = []
+def stem(input_sentences: list):
+    # result = []
     stemmer = PorterStemmer()
-    for word in input_words:
-        result.append(stemmer.stem(word))
+    result = [[stemmer.stem(word) for word in sentence] for sentence in input_sentences]
+    # for sentence in input_sentences:
+    #     new_sentence = []
+    #     for word in sentence:
+
+    # for word in input_words:
+    #     result.append(stemmer.stem(word))
+    return result
+
+
+def get_all_words(input_sentences: list):
+    result = []
+    for sentence in input_sentences:
+        result += sentence
     return result
 
 
@@ -16,18 +28,27 @@ def clean_text(input_text: str):
     # TODO: Clean input_text
     # TODO: Lower case the text before processing it
     input_text = input_text.lower()
-    input_text = keep_words_only(input_text)
-    input_text = remove_stop_words(input_text)
-    return input_text
+    result = keep_words_only(input_text)
+    result = remove_stop_words(result)
+    return result
 
 
 def remove_stop_words(input_text: str):
     # Remove stop words from input_text
     stop_words = set(stopwords.words('english'))
-    word_tokens = word_tokenize(input_text)
+    # Split into sentences first because of Task 3
+    sentences = sent_tokenize(input_text)
+    output = []
+    for sentence in sentences:
+        word_tokens = word_tokenize(sentence)
+        word_tokens = [word for word in word_tokens if word not in stop_words]
+        output.append(word_tokens)
 
-    output = [word for word in word_tokens if word not in stop_words]
-    return " ".join(output)
+    # word_tokens = word_tokenize(input_text)
+
+    # output = [word for word in word_tokens if word not in stop_words]
+    # return " ".join(output)
+    return output
 
 
 def keep_words_only(input_text: str, result_as_list=False):
