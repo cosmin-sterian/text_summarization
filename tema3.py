@@ -125,8 +125,9 @@ def main():
 def write_top3_sentences(sentences, path='sentences_top3.txt'):
     out_file = open(path, 'w')
     for sentence, score in sentences:
-        out_file.write(sentence + '; Score: ' + str(score))
+        out_file.write(sentence + '\nScore: ' + str(score) + '\n\n')
     out_file.close()
+    print('Sentences saved to file', path)
 
 
 def write_to_file(vocabulary, path='vocabulary.txt'):
